@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 //database util
-const mysqlcon = require('./database.js');
+const utils = require('./database.js');
 
 var app = express();
 app.use(bodyParser.json());
@@ -68,36 +68,7 @@ function dissort(routeArr,pointArr){
     return ans;
 }
 
-//RANDOM COVID HOTSPOTS GENERATION
+//UNCOMMENT THIS TO GENERATE HOTSPOTS ()
+//utils.genhotspot(21.060000, 21.219999, 72.720000, 72.870000, 100, 0, 0);
 
-function genhotspot(latmin, latmax, lngmin, lngmax, num, latmar, lngmar) {
-
-    var latdif = latmax - latmin - (2 * latmar);
-    var lngdif = lngmax - lngmin - (2 * lngmar);
-
-    var query = "INSERT INTO `hotspots` (`id`, `lat`, `lng`) VALUES ";
-
-    for (var i = 0; i < num; i++) {
-        var latrand = Math.random() * latdif;
-        var lngrand = Math.random() * lngdif;
-
-        var latcur = latmin + latmar + latrand;
-        var lngcur = lngmin + lngmar + lngrand;
-
-        query += "(NULL, '" + latcur + "', '" + lngcur + "')";
-        if(i < num - 1) query += ", ";
-    }
-
-    mysqlcon.query(query, function(error, rows, fields) {
-        if(error) {
-            console.log('Error in query!');
-        }
-        else {
-            console.log("Successfully entered " + num + " records!");
-        }
-    });
-}
-
-
-//FUNCTION CALL TO GENERATE
-genhotspot(22.020000, 22.060000, 45.050000, 45.090000, 100, 0.01, 0.01);
+utils.numhotspot(22,23,45,46).then(response => console.log(response));
