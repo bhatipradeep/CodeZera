@@ -182,6 +182,7 @@ function onSuccess(result) {
       addWaypointsToPanel(route);
       addManueversToPanel(route);
       addSummaryToPanel(route);
+      addCluster(data.covid);
     });
 
   // result.routes.forEach((element)=>{
@@ -293,7 +294,20 @@ function addManueversToMap(route) {
   });
 }
 
+//add cluster
+function addLayer(route){
+  var dataPoints = [];
+  route.forEach((Element)=>{
+    dataPoints.push(new H.clustering.DataPoint(Element.lat, Element.lng));
+  });
+  var clusteredDataProvider = new H.clustering.Provider(dataPoints);
 
+  // Create a layer that includes the data provider and its data points: 
+  var layer = new H.map.layer.ObjectLayer(clusteredDataProvider);
+
+  // Add the layer to the map:
+  map.addLayer(layer);
+}
 /**
 * Creates a series of H.map.Marker points from the route and adds them to the map.
 * @param {Object} route  A route as received from the H.service.RoutingService
