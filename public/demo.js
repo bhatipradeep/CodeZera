@@ -176,13 +176,15 @@ function onSuccess(result) {
   fetch(url, fetchData)
     .then(response => response.json())
     .then((data) => {
+      //console.log(data);
       let route = result.routes[data.ans[0].i];
       addRouteShapeToMap(route);
       addManueversToMap(route);
+      addCluster(data.covidArr);
       addWaypointsToPanel(route);
       addManueversToPanel(route);
       addSummaryToPanel(route);
-      addCluster(data.covid);
+      
     });
 
   // result.routes.forEach((element)=>{
@@ -296,6 +298,7 @@ function addManueversToMap(route) {
 
 //add cluster
 function addCluster(route){
+  console.log(route);
   var dataPoints = [];
   route.forEach((Element)=>{
     dataPoints.push(new H.clustering.DataPoint(Element.lat, Element.lng));
