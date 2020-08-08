@@ -22,7 +22,11 @@ app.post('/routes',(req,res)=>{
     utils.numhotspot(minmax.latmin,minmax.latmax,minmax.lngmin,minmax.lngmax).then((response)=>{
         var pointArr = response;
         var ans = dissort(routeArr,pointArr);
-    res.send({ans});
+
+        utils.covid().then((response)=>{
+            var covidArr = response;
+            res.send({ans, covidArr});
+        });
     });
 })
 
