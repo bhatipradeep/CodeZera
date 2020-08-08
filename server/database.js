@@ -59,11 +59,26 @@ const numhotspot = (latmin, latmax, lngmin, lngmax) => {
       }
     });
   })
+}
 
+//FUNCTION TO RETURN COVID HOTSPOTS
+const covid = () => {
+  var query = "SELECT lat, lng from `hotspots` LIMIT 30"
+  return new Promise(function (resolve, reject) {
+    mysqlcon.query(query, function (error, rows, fields) {
+      if (rows) {
+        resolve(rows);
+      }
+      else {
+        reject(error);
+      }
+    });
+  })
 }
 
 module.exports = {
   mysqlcon,
   genhotspot,
-  numhotspot
-};  
+  numhotspot,
+  covid
+};
