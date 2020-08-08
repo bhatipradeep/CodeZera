@@ -46,21 +46,31 @@ function genhotspot(latmin, latmax, lngmin, lngmax, num, latmar, lngmar) {
 }
 
 //FUNCTION TO RETURN NO OF HOTSPOTS IN GIVEN AREA
-async function numhotspot(latmin, latmax, lngmin, lngmax) {
+const numhotspot = (latmin, latmax, lngmin, lngmax) => {
   var query = "SELECT lat, lng FROM `hotspots` WHERE (`lat` BETWEEN " + latmin + " AND " + latmax + ") AND (`lng` BETWEEN " + lngmin + " AND " + lngmax + ")"
-
+  return new Promise(function(resolve,reject) {
+      
   mysqlcon.query(query, function(error, rows, fields) {
-      //console.log(rows);
-      //return Promise.resolve(rows);
-
-      return Promise.resolve({ 
-      then: function(onFulfill, onReject) { onFulfill('fulfilled!'); }
-});
-  });
+    if(rows){
+      resolve(rows);
+    }
+    else{
+      reject(error);
+    }
+  });  
+  })
+  
 }
+
+
+const getTaxAmount = (price, taxRate) => {
+  return Promise.resolve(Math.floor((price * taxRate) / 100));
+};
+
 
 module.exports = {
   mysqlcon,
   genhotspot,
+  getTaxAmount,
   numhotspot
 };  

@@ -71,4 +71,8 @@ function dissort(routeArr,pointArr){
 //UNCOMMENT THIS TO GENERATE HOTSPOTS ()
 //utils.genhotspot(21.060000, 21.219999, 72.720000, 72.870000, 100, 0, 0);
 
+  utils.getTaxAmount(100, 12).then((taxAmount) => console.log(taxAmount));
+
+// var p1 = Promise.resolve("123");
+// p1.then((el)=>console.log(el));
 utils.numhotspot(22,23,45,46).then(response => console.log(response));
