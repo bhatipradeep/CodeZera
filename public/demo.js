@@ -295,7 +295,7 @@ function addManueversToMap(route) {
 }
 
 //add cluster
-function addLayer(route){
+function addCluster(route){
   var dataPoints = [];
   route.forEach((Element)=>{
     dataPoints.push(new H.clustering.DataPoint(Element.lat, Element.lng));
