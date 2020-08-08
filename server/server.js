@@ -1,5 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
+//database util
+const mysqlcon = require('./database.js');
+
 var app = express();
 app.use(bodyParser.json());
 app.listen(3000, () => {
@@ -13,7 +17,6 @@ app.post('/routes',(req,res)=>{
     var pointArr = [];
     var ans = dissort(routeArr,pointArr);
 })
-
 
 function findSquare(arr){
     var latmin = 360;
@@ -30,8 +33,6 @@ function findSquare(arr){
     });
     return {latmin,latmax,lngmin,lngmax};
 }
-
-
 
 function distance(lat1, lat2, lon1, lon2) 
 { 
@@ -66,3 +67,37 @@ function dissort(routeArr,pointArr){
     ans.sort(function(a,b) {return a.dis - b.dis});
     return ans;
 }
+
+//RANDOM COVID HOTSPOTS GENERATION
+
+function genhotspot(latmin, latmax, lngmin, lngmax, num, latmar, lngmar) {
+
+    var latdif = latmax - latmin - (2 * latmar);
+    var lngdif = lngmax - lngmin - (2 * lngmar);
+
+    var query = "INSERT INTO `hotspots` (`id`, `lat`, `lng`) VALUES ";
+
+    for (var i = 0; i < num; i++) {
+        var latrand = Math.random() * latdif;
+        var lngrand = Math.random() * lngdif;
+
+        var latcur = latmin + latmar + latrand;
+        var lngcur = lngmin + lngmar + lngrand;
+
+        query += "(NULL, '" + latcur + "', '" + lngcur + "')";
+        if(i < num - 1) query += ", ";
+    }
+
+    mysqlcon.query(query, function(error, rows, fields) {
+        if(error) {
+            console.log('Error in query!');
+        }
+        else {
+            console.log("Successfully entered " + num + " records!");
+        }
+    });
+}
+
+
+//FUNCTION CALL TO GENERATE
+genhotspot(22.020000, 22.060000, 45.050000, 45.090000, 100, 0.01, 0.01);
