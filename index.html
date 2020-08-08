@@ -5,6 +5,15 @@
   <title>NoCovidStreet</title>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+  <link rel="stylesheet" type="text/css" href="demo.css" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link rel="stylesheet" type="text/css" href="../template.css" />
+  <script type="text/javascript" src='../test-credentials.js'></script>    
+  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+  <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
   <style>
     /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -49,7 +58,6 @@
     }
 
     #pac-container {
-      padding-bottom: 12px;
       margin-right: 12px;
     }
 
@@ -86,86 +94,71 @@
       font-weight: 500;
       padding: 6px 12px;
     }
+    .directions li span.arrow {
+        display:inline-block;
+        min-width:28px;
+        min-height:28px;
+        background-position:0px;
+        background-image: url("https://heremaps.github.io/maps-api-for-javascript-examples/map-with-route-from-a-to-b/img/arrows.png");
+        position:relative;
+        top:8px;
+      }
+      .directions li span.depart  {
+        background-position:-28px;
+      }
+      .directions li span.rightturn  {
+        background-position:-224px;
+      }
+      .directions li span.leftturn{
+        background-position:-252px;
+      }
+      .directions li span.arrive  {
+        background-position:-1288px;
+      }
   </style>
 </head>
 
 <body>
-  <div class="pac-card" id="pac-card">
-    <div>
-      <div id="title">
-        Please Select the Source !
-      </div>
-     
-      <div id="pac-container">
-        <input id="pac-input-1" type="text" placeholder="Enter a location">
-      </div>
-    </div>
-
+  <nav>
     <div class="pac-card" id="pac-card">
       <div>
         <div id="title">
-          Please Select the Destination !
+          Please Select the Source !
         </div>
        
+        <div id="pac-container">
+          <input id="pac-input-1" type="text" placeholder="Enter a location">
+        </div>
       </div>
-      <div id="pac-container">
-        <input id="pac-input-2" type="text" placeholder="Enter a location">
+    </div>
+  
+      <div class="pac-card" id="pac-card">
+        <div>
+          <div id="title">
+            Please Select the Destination !
+          </div>
+         
+        </div>
+        <div id="pac-container">
+          <input id="pac-input-2" type="text" placeholder="Enter a location">
+        </div>
+        </div>
+        <button type="submit" id="calculate_route">Submit</button>
+  </nav>
+      <div>
+        <div id="map"></div>
+        <div id="panel"></div>
+        <h3>Code</h3>
+        <p>Access to the routing service is obtained from the <code>H.service.Platform</code> by calling 
+          <code>getRoutingService()</code>. The <code>calculateRoute()</code> method is used to calculate the fastest 
+          car route by passing in the relevant parameters as defined in 
+          <a href="https://developer.here.com/documentation/routing-api/dev_guide/topics/use-cases/calculate-route.html" target="_blank">Routing API</a>. 
+          The styling and display of the response is under the control of the developer.</p>
       </div>
      
-
-      <script>
-        
-
-        function initMap() {
-         
-         
-          var source = document.getElementById('pac-input-1');
-          var destination = document.getElementById('pac-input-2');
-
-
-
-
-          var autocompleteSource = new google.maps.places.Autocomplete(source);
-          var autocompleteDestination = new google.maps.places.Autocomplete(destination);
-
-         
-          autocompleteSource.setFields(
-            ['address_components', 'geometry', 'icon', 'name']);
-          autocompleteDestination.setFields(
-            ['address_components', 'geometry', 'icon', 'name']);
-
-
-          autocompleteSource.addListener('place_changed', function () {
-           
-            var place = autocompleteSource.getPlace();
-            console.log('Source is ');
-            console.log(place);
-            var source = place;
-            if (!place.geometry) {
-              window.alert("No details available for input: '" + place.name + "'");
-              return;
-            }
-
-          });
-
-          autocompleteDestination.addListener('place_changed', function () {
-            
-            var place = autocompleteDestination.getPlace();
-            console.log('Destination is');
-            console.log(place);
-            var destination = place;
-            if (!place.geometry) {
-              window.alert("No details available for input: '" + place.name + "'");
-              return;
-            }
-
-          });
-
-         
-        }
-      </script>
+      <script type="text/javascript" src='demo.js'></script>
       <script
-        src="https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places&callback=initMap"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZXd6roPwddf3zb6xsugw059Mxb-M-_yk&libraries=places&callback=initMap"
         defer></script>
 </body>
 
