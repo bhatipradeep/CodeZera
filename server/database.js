@@ -65,6 +65,5 @@ const numhotspot = (latmin, latmax, lngmin, lngmax) => {
 module.exports = {
   mysqlcon,
   genhotspot,
-  getTaxAmount,
   numhotspot
 };  

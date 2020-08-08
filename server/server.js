@@ -1,10 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-//database util
+// //database util
 const utils = require('./database.js');
 
 var app = express();
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.use(bodyParser.json());
 app.listen(3000, () => {
     console.log(`started on port 3000`);
@@ -13,9 +18,11 @@ app.listen(3000, () => {
 app.post('/routes',(req,res)=>{
     var routeArr = req.body.routeArr;
     var minmax = findSquare(routeArr);
-    //From db using minmax
-    var pointArr = [];
-    var ans = dissort(routeArr,pointArr);
+    utils.numhotspot(minmax.latmin,minmax.latmax,minmax.lngmin,minmax.lngmax).then((response)=>{
+        var pointArr = response;
+        var ans = dissort(routeArr,pointArr);
+    res.send({ans});
+    });
 })
 
 function findSquare(arr){
@@ -37,10 +44,10 @@ function findSquare(arr){
 function distance(lat1, lat2, lon1, lon2) 
 { 
 
-lon1 = Math.toRadians(lon1); 
-lon2 = Math.toRadians(lon2); 
-lat1 = Math.toRadians(lat1); 
-lat2 = Math.toRadians(lat2); 
+lon1 = toRadians(lon1); 
+lon2 = toRadians(lon2); 
+lat1 = toRadians(lat1); 
+lat2 = toRadians(lat2); 
 
 // Haversine formula  
 var dlon = lon2 - lon1;  
@@ -55,20 +62,28 @@ return(c * r);
 
 function dissort(routeArr,pointArr){
     var ans = [];
+    var i=0;
     routeArr.forEach((route)=>{
         var dis = 0;
         route.forEach((obj)=>{
             pointArr.forEach((point)=>{
-                dis+=distance(obj.lat,point.latmobj.lng,point.lng);
+                dis+=distance(obj.lat,point.lat,obj.lng,point.lng);
             })
         })
-        ans.push({route,dis});   
+        ans.push({dis,i});
+        i++;   
     })
-    ans.sort(function(a,b) {return a.dis - b.dis});
+    ans.sort(function(a,b) {return b.dis - a.dis});
     return ans;
 }
 
-//UNCOMMENT THIS TO GENERATE HOTSPOTS ()
-//utils.genhotspot(21.060000, 21.219999, 72.720000, 72.870000, 100, 0, 0);
+function toRadians(degree) 
+{ 
+    one_deg = Math.PI / (180); 
+    return (one_deg * degree); 
+}
 
-utils.numhotspot(22,23,45,46).then(response => console.log(response));
+//UNCOMMENT THIS TO GENERATE HOTSPOTS ()
+// utils.genhotspot(21.060000, 21.219999, 72.720000, 72.870000, 100, 0, 0);
+
+// utils.numhotspot(22,23,45,46).then(response => console.log(response));
