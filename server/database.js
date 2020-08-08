@@ -51,7 +51,11 @@ async function numhotspot(latmin, latmax, lngmin, lngmax) {
 
   mysqlcon.query(query, function(error, rows, fields) {
       //console.log(rows);
-      return Promise.resolve(rows);
+      //return Promise.resolve(rows);
+
+      return Promise.resolve({ 
+      then: function(onFulfill, onReject) { onFulfill('fulfilled!'); }
+});
   });
 }
 
