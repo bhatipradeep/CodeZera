@@ -102,7 +102,7 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers);
-const url = "http://localhost:3000/covidroute";
+const url = "/covidroute";
   // let data = {"he":"hello"};
   // The parameters we are gonna pass to the fetch function
   let fetchData = {
