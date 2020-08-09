@@ -1,7 +1,6 @@
 var mysql = require('mysql');
 require('dotenv').config();
 const { DB_NAME, DB_USER, DB_HOST, DB_PASS, DB_PORT } = process.env;
-
 var mysqlcon = mysql.createConnection({
   host: DB_HOST,// Replace with your host name
   user: DB_USER,// Replace with your database username
@@ -13,6 +12,7 @@ var mysqlcon = mysql.createConnection({
 
 mysqlcon.connect(function (err) {
   if (err) {
+
     console.log('Error in Database Connection!')
   }
   else
