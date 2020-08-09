@@ -16,17 +16,22 @@ app.listen(3000, () => {
     console.log(`started on port 3000`);
 });
 
+//route for sending sorted routes
 app.post('/routes',(req,res)=>{
     var routeArr = req.body.routeArr;
     var minmax = findSquare(routeArr);
     utils.numhotspot(minmax.latmin,minmax.latmax,minmax.lngmin,minmax.lngmax).then((response)=>{
         var pointArr = response;
         var ans = dissort(routeArr,pointArr);
+        res.send({ans});
+    });
+})
 
-        utils.covid().then((response)=>{
-            var covidArr = response;
-            res.send({ans, covidArr});
-        });
+//route for sending covid hotspots
+app.post('/covidroute',(req,res)=>{
+    utils.covid(500).then((response)=>{
+        var covidArr = response;
+        res.send({covidArr});
     });
 })
 

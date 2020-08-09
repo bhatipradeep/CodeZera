@@ -47,7 +47,7 @@ function genhotspot(latmin, latmax, lngmin, lngmax, num, latmar, lngmar) {
 
 //FUNCTION TO RETURN NO OF HOTSPOTS IN GIVEN AREA
 const numhotspot = (latmin, latmax, lngmin, lngmax) => {
-  var query = "SELECT lat, lng FROM `hotspots` WHERE (`lat` BETWEEN " + latmin + " AND " + latmax + ") AND (`lng` BETWEEN " + lngmin + " AND " + lngmax + ")"
+  var query = "SELECT lat, lng FROM `hotspots` WHERE (`lat` BETWEEN " + latmin + " AND " + latmax + ") AND (`lng` BETWEEN " + lngmin + " AND " + lngmax + ")";
   return new Promise(function (resolve, reject) {
 
     mysqlcon.query(query, function (error, rows, fields) {
@@ -62,8 +62,8 @@ const numhotspot = (latmin, latmax, lngmin, lngmax) => {
 }
 
 //FUNCTION TO RETURN COVID HOTSPOTS
-const covid = () => {
-  var query = "SELECT lat, lng from `hotspots` LIMIT 30"
+const covid = (num) => {
+  var query = "SELECT lat, lng from `hotspots` LIMIT " + num;
   return new Promise(function (resolve, reject) {
     mysqlcon.query(query, function (error, rows, fields) {
       if (rows) {
