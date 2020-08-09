@@ -170,7 +170,7 @@ function onSuccess(result) {
     };
     routearr.push(legs);
   });
-  const url = "http://localhost:3000/routes";
+  const url = "/routes";
   let data = { routeArr: routearr };
   // let data = {"he":"hello"};
   // The parameters we are gonna pass to the fetch function
