@@ -87,8 +87,8 @@ var defaultLayers = platform.createDefaultLayers();
 //Step 2: initialize a map - this map is centered over Berlin
 var map = new H.Map(mapContainer,
   defaultLayers.vector.normal.map, {
-  center: { lat: 52.5160, lng: 13.3779 },
-  zoom: 13,
+  center: { lat: 21.1399995, lng: 72.795 },
+  zoom: 13.5,
   pixelRatio: window.devicePixelRatio || 1
 });
 //map.addLayer(defaultLayers.vector.normal.traffic);
@@ -102,7 +102,20 @@ var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
 // Create the default UI components
 var ui = H.ui.UI.createDefault(map, defaultLayers);
-
+//to add cluster
+const url = "http://localhost:3000/covidroute";
+  // let data = {"he":"hello"};
+  // The parameters we are gonna pass to the fetch function
+  let fetchData = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  }
+  fetch(url, fetchData)
+    .then(response => response.json())
+    .then((data) => {
+      console.log(data);
+      addCluster(data.covidArr);
+    });
 // Hold a reference to any infobubble opened
 var bubble;
 
@@ -125,14 +138,8 @@ function openBubble(position, text) {
   }
 }
 function mapmark(start) {
-  var svgMarkup = '<svg width="24" height="24" ' +
-    'xmlns="http://www.w3.org/2000/svg">' +
-    '<rect stroke="white" fill="#1b468d" x="1" y="1" width="22" ' +
-    'height="22" /><text x="12" y="18" font-size="12pt" ' +
-    'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
-    'fill="white">H</text></svg>';
-  var icon = new H.map.Icon(svgMarkup),
-    marker = new H.map.Marker(start, { icon: icon });
+  var svgIcon = new H.map.Icon("https://image.flaticon.com/icons/svg/190/190488.svg", {size: {w: 32, h: 32}});
+  marker = new H.map.Marker(start, { icon: svgIcon });
   map.addObject(marker);
   map.setCenter(start);
 }
@@ -180,7 +187,6 @@ function onSuccess(result) {
       let route = result.routes[data.ans[0].i];
       addRouteShapeToMap(route);
       addManueversToMap(route);
-      addCluster(data.covidArr);
       addWaypointsToPanel(route);
       addManueversToPanel(route);
       addSummaryToPanel(route);

@@ -95,6 +95,6 @@ function toRadians(degree)
 }
 
 //UNCOMMENT THIS TO GENERATE HOTSPOTS ()
-// utils.genhotspot(21.060000, 21.219999, 72.720000, 72.870000, 500, 0, 0);
+//utils.genhotspot(21.060000, 21.219999, 72.720000, 72.870000, 500, 0, 0);
 
 // utils.numhotspot(22,23,45,46).then(response => console.log(response));
