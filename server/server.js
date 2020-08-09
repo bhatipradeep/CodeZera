@@ -80,6 +80,7 @@ function dissort(routeArr,pointArr){
                 dis+=distance(obj.lat,point.lat,obj.lng,point.lng);
             })
         })
+        dis *= pointArr.length;
         ans.push({dis,i});
         i++;   
     })
