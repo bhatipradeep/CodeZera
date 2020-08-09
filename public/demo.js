@@ -137,7 +137,7 @@ function openBubble(position, text) {
   }
 }
 function mapmark(start) {
-  var svgIcon = new H.map.Icon("https://svgur.com/i/8e6.svg", {size: {w: 32, h: 32}});
+  var svgIcon = new H.map.Icon("https://image.flaticon.com/icons/svg/190/190488.svg", {size: {w: 32, h: 32}});
   marker = new H.map.Marker(start, { icon: svgIcon });
   map.addObject(marker);
   map.setCenter(start);
