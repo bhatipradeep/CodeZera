@@ -58,7 +58,7 @@ If u dont how to deploy using heroku please go through https://devcenter.heroku.
 
 ## Built With
 
-* [HTML](https://www.w3schools.com/html/) [CSS](https://www.w3schools.com/css/) [Javascript] (https://www.javascript.com/) - The web framework used
+* [HTML](https://www.w3schools.com/html/) [CSS](https://www.w3schools.com/css/) [Javascript](https://www.javascript.com/) - The web framework used
 * [HERE Map API](https://developer.here.com/) [Google Maps API](https://developers.google.com/maps/documentation)- APIs Used
 * [Node JS](https://nodejs.org/) - Used for Back-End
 * [MySQL](https://www.mysql.com/) - Used for database
