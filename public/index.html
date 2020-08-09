@@ -7,9 +7,10 @@
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
   <link rel="stylesheet" type="text/css" href="demo.css" />
-  <link rel="stylesheet" type="text/css" href="styles.css" />
-  <link rel="stylesheet" type="text/css" href="../template.css" />
-  <script type="text/javascript" src='../test-credentials.js'></script>    
+  <!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="../template.css" /> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- <script type="text/javascript" src='../test-credentials.js'></script>     -->
   <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
   <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
   <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
@@ -48,7 +49,7 @@
         display: inline;
       } */
 
-    .pac-card {
+    /* .pac-card {
       margin: 10px 10px 0 0;
       border-radius: 2px 0 0 2px;
       box-sizing: border-box;
@@ -95,7 +96,7 @@
       font-size: 25px;
       font-weight: 500;
       padding: 6px 12px;
-    }
+    } */
     .directions li span.arrow {
         display:inline-block;
         min-width:28px;
@@ -121,43 +122,41 @@
 </head>
 
 <body>
-  <nav>
-    <div class="pac-card" id="pac-card">
-      <div>
-        <div id="title">
-          Please Select the Source !
-        </div>
-       
-        <div id="pac-container">
-          <input id="pac-input-1" type="text" placeholder="Enter a location">
-        </div>
+  <!-- NavBar -->
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="./images/maps.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+      NoCovidStreet
+    </a>
+  </nav>
+
+  <!-- Search Bar -->
+  <div class="col-md-12 fixed-top" style="top: 70px;">
+    <div class="form-row">
+      <div class="col-md-5 my-1">
+        <input type="text" id="pac-input-1" class="form-control border-dark" placeholder="Enter Source....">
+      </div>
+      <div class="col-md-5 my-1">
+        <input type="text" id="pac-input-2" class="form-control border-dark" placeholder="Enter Destination....">
+      </div>
+      <div class="col-md-2 my-1">
+        <button type="submit" id="calculate_route" class="btn btn-primary btn-block">Search</button>
       </div>
     </div>
-  
-      <div class="pac-card" id="pac-card">
-        <div>
-          <div id="title">
-            Please Select the Destination !
-          </div>
-         
-        </div>
-        <div id="pac-container">
-          <input id="pac-input-2" type="text" placeholder="Enter a location">
-        </div>
-        </div>
-        <button type="submit" id="calculate_route">Submit</button>
-  </nav>
-      <div>
-        <div id="map"></div>
-        <div id="panel"></div>
-        <h3>Code</h3>
-        <p>Access to the routing service is obtained from the <code>H.service.Platform</code> by calling 
-          <code>getRoutingService()</code>. The <code>calculateRoute()</code> method is used to calculate the fastest 
-          car route by passing in the relevant parameters as defined in 
-          <a href="https://developer.here.com/documentation/routing-api/dev_guide/topics/use-cases/calculate-route.html" target="_blank">Routing API</a>. 
-          The styling and display of the response is under the control of the developer.</p>
-      </div>
-     
+  </div>
+
+  <!-- Map -->
+  <div class="col-md-12 px-0">
+    <div id="map"></div>
+  </div>
+  <div class="col-md-12">
+    <div id="panel"></div>
+  </div>
+
+      <!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
       <script type="text/javascript" src='demo.js'></script>
       <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZXd6roPwddf3zb6xsugw059Mxb-M-_yk&libraries=places&callback=initMap"
