@@ -183,12 +183,15 @@ function onSuccess(result) {
     .then(response => response.json())
     .then((data) => {
       //console.log(data);
-      let route = result.routes[data.ans[0].i];
-      addRouteShapeToMap(route);
-      addManueversToMap(route);
-      addWaypointsToPanel(route);
-      addManueversToPanel(route);
-      addSummaryToPanel(route);
+      let route = result.routes[data.ans[2].i];
+      addAlternateRouteShapeToMap(route);
+
+      let route1 = result.routes[data.ans[1].i];
+      addAlternateRouteShapeToMap(route1);
+
+      let route2 = result.routes[data.ans[0].i];
+      addRouteShapeToMap(route2);
+      addManueversToMap(route2);
       
     });
 
@@ -221,6 +224,48 @@ function addRouteShapeToMap(route) {
       style: {
         lineWidth: 10,
         strokeColor: 'rgba(0, 128, 255, 0.7)',
+        lineTailCap: 'arrow-tail',
+        lineHeadCap: 'arrow-head'
+      }
+    });
+    // Create a patterned polyline:
+    var routeArrows = new H.map.Polyline(linestring, {
+      style: {
+        lineWidth: 10,
+        fillColor: 'white',
+        strokeColor: 'rgba(255, 255, 255, 1)',
+        lineDash: [0, 2],
+        lineTailCap: 'arrow-tail',
+        lineHeadCap: 'arrow-head'
+      }
+    }
+    );
+    var routeLine = new H.map.Group();
+    routeLine.addObjects([routeOutline, routeArrows]);
+
+    //CODE
+    routeLine.id = "someroute";
+
+    // Add the polyline to the map
+    map.addObject(routeLine);
+    // And zoom to its bounding rectangle
+    map.getViewModel().setLookAtData({
+      bounds: routeLine.getBoundingBox()
+    });
+  });
+}
+
+//alternative path
+function addAlternateRouteShapeToMap(route) {
+  route.sections.forEach((section) => {
+    // decode LineString from the flexible polyline
+    let linestring = H.geo.LineString.fromFlexiblePolyline(section.polyline);
+    console.log(route);
+    // Create a polyline to display the route:
+    var routeOutline = new H.map.Polyline(linestring, {
+      style: {
+        lineWidth: 10,
+        strokeColor: 'rgba(103, 128, 159, 0.6)',
         lineTailCap: 'arrow-tail',
         lineHeadCap: 'arrow-head'
       }
