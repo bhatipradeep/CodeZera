@@ -50,11 +50,11 @@ at last open index.html
 To generate route one needs to enter source and destination location. (Both loations should be of Surat city)
 
 ## Deployment
-
+```
 The project can de deployd using heroku server
 ```
 If u dont how to deploy using heroku please go through https://devcenter.heroku.com/categories/deployment
-```
+
 
 ## Built With
 
