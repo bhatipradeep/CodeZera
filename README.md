@@ -5,7 +5,7 @@ The aim is to build a webapp for showing the safest route between two locations 
 ## Problem that our project addresses
 
 In the times of corona pandemic the main concern of all residents is how to reach a destination without going through hotspots or in which we have least exposure to hotspots.
-Since Unlock procedure has started there is no containment zones of 200-300m radius created as they were initially, instead now only the building is being sealed that too just a banner is put outside the building ith no restrictions in going in and out.
+Since Unlock procedure has started there is no containment zones of 200-300m radius created as they were initially, instead now only the building is being sealed that too just a banner is put outside the building with no restrictions in going in and out.
 Thus to be safe from exposure to covid infected patients we need a route which goes through as many least hotspots as possible.
 
 ### Prerequisites
@@ -18,14 +18,14 @@ Thus to be safe from exposure to covid infected patients we need a route which g
 
 A step by step series of how to set up code locally
 
-Say what the step will be
+The steps are as follows:
 
 ```
-clone the code using git clone "https://github.com/HAC-2020/CodeZera.git"
+clone the code using "git clone "https://github.com/HAC-2020/CodeZera.git""
 ```
 
 ```
-run npm install in the CodeZera folder
+run "npm install" in the CodeZera folder
 ```
 ```
 api keys needs to be changed
