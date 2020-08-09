@@ -1,10 +1,13 @@
 var mysql = require('mysql');
+require('dotenv').config();
+const { DB_NAME, DB_USER, DB_HOST, DB_PASS, DB_PORT } = process.env;
 
 var mysqlcon = mysql.createConnection({
-  host: 'localhost',// Replace with your host name
-  user: 'root',// Replace with your database username
-  password: '',// Replace with your database password
-  database: 'hac',// Replace with your database Name
+  host: DB_HOST,// Replace with your host name
+  user: DB_USER,// Replace with your database username
+  port: DB_PORT,
+  password: DB_PASS,// Replace with your database password
+  database: DB_NAME,// Replace with your database Name
   multipleStatements: true
 });
 
